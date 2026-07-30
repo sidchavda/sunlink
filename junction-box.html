@@ -92,39 +92,13 @@
     </div>
 
     <div class="t3d-wrap" id="t3dWrap">
-        <div class="t3d-sticky">
-            <div class="t3d-scene">
-                <div class="t3d-counter" id="t3dCounter">
-                    <span class="t3d-current" id="t3dCurrent">1</span>
-                    <span class="t3d-divider">/</span>
-                    <span class="t3d-total">3</span>
+        <div class="t3d-sticky" id="t3dSticky">
+            <div class="t3d-stage" id="t3dStage">
+                <div class="t3d-model" id="t3dModel">
+                    <img src="img/1.png" class="t3d-part" data-idx="0">
+                    <img src="img/2.png" class="t3d-part" data-idx="1">
+                    <img src="img/3.png" class="t3d-part" data-idx="2">
                 </div>
-                <div class="t3d-images" id="t3dImages">
-                    <div class="t3d-img-wrap" id="t3dImg1">
-                        <img src="img/1.png" alt="Assembly Step 1">
-                        <div class="t3d-label">Base Structure</div>
-                    </div>
-                    <div class="t3d-img-wrap" id="t3dImg2">
-                        <img src="img/2.png" alt="Assembly Step 2">
-                        <div class="t3d-label">Core Assembly</div>
-                    </div>
-                    <div class="t3d-img-wrap" id="t3dImg3">
-                        <img src="img/3.png" alt="Assembly Step 3">
-                        <div class="t3d-label">Final Integration</div>
-                    </div>
-                </div>
-                <div class="t3d-progress" id="t3dProgress">
-                    <div class="t3d-progress-fill" id="t3dProgressFill"></div>
-                    <div class="t3d-progress-steps">
-                        <span class="t3d-ps active" data-idx="0"></span>
-                        <span class="t3d-ps" data-idx="1"></span>
-                        <span class="t3d-ps" data-idx="2"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="t3d-hint">
-                <span class="t3d-hint-icon">&#x2193;</span>
-                <span class="t3d-hint-text">Scroll to assemble</span>
             </div>
         </div>
     </div>
@@ -304,70 +278,50 @@
     <script src="js/main.js"></script>
 
     <script>
-    (function ($) {
+    (function () {
         "use strict";
 
-        var $wrap = $('#t3dWrap');
-        var $imgs = [$('#t3dImg1'), $('#t3dImg2'), $('#t3dImg3')];
-        var $progress = $('#t3dProgressFill');
-        var $steps = $('.t3d-ps');
-        var $counter = $('#t3dCurrent');
-        var $hint = $('.t3d-hint');
+        var wrap = document.getElementById('t3dWrap');
+        var stage = document.getElementById('t3dStage');
+        var model = document.getElementById('t3dModel');
+        var parts = document.querySelectorAll('.t3d-part');
         var ticking = false;
 
+        var mouseX = 0, mouseY = 0;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function getProgress() {
+            var rect = wrap.getBoundingClientRect();
+            var wh = window.innerHeight;
+            var total = wrap.scrollHeight - wh;
+            if (total <= 0) return 0;
+            return Math.max(0, Math.min(1, -rect.top / total));
+        }
+
         function update() {
-            if (!$wrap.length) return;
+            if (!wrap) return;
 
-            var rect = $wrap[0].getBoundingClientRect();
-            var wh = $(window).height();
-            var totalScroll = $wrap[0].scrollHeight - wh;
-            if (totalScroll <= 0) { ticking = false; return; }
-            var scrolled = -rect.top;
-            var progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+            var progress = getProgress();
 
-            var pct = progress * 100;
-            $progress.css('width', pct + '%');
-
-            var thresholds = [0, 0.33, 0.66];
-            var stepIdx = 0;
-            for (var i = $imgs.length - 1; i >= 0; i--) {
-                if (progress >= thresholds[i]) { stepIdx = i; break; }
+            for (var j = 0; j < parts.length; j++) {
+                var part = parts[j];
+                var center = (j + 0.5) / 3;
+                var dist = Math.abs(progress - center) * 3;
+                var o = 1 - dist;
+                o = Math.max(0, Math.min(1, o));
+                o = o * o * (3 - 2 * o);
+                part.style.opacity = o;
             }
 
-            for (var j = 0; j < $imgs.length; j++) {
-                var $img = $imgs[j];
-                var t = thresholds[j];
-                var tNext = (j < $imgs.length - 1) ? thresholds[j + 1] : 1;
-                var localProgress = (progress - t) / (tNext - t);
-                localProgress = Math.max(0, Math.min(1, localProgress));
-
-                if (j < stepIdx) {
-                    $img.css({ opacity: 0, transform: 'translateY(-30px) scale(0.8)' });
-                } else if (j === stepIdx) {
-                    var s = 0.7 + localProgress * 0.3;
-                    var y = (1 - localProgress) * 40;
-                    $img.css({ opacity: localProgress, transform: 'translateY(' + y + 'px) scale(' + s + ')' });
-                } else {
-                    $img.css({ opacity: 0, transform: 'translateY(40px) scale(0.7)' });
-                }
-            }
-
-            $steps.each(function (idx) {
-                $(this).toggleClass('active', idx <= stepIdx);
-            });
-
-            $counter.text(stepIdx + 1);
-
-            if (progress < 0.05) {
-                $hint.css('opacity', 1 - progress * 20);
-            } else {
-                $hint.css('opacity', 0);
-            }
+            var rotY = -15 + progress * -345 + mouseX * 4;
+            var rotX = 8 + mouseY * -2;
+            model.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
 
             ticking = false;
         }
 
-        $(window).on('scroll', function () {
+        function onScroll() {
             if (!ticking) {
                 window.requestAnimationFrame(function () {
                     update();
@@ -375,11 +329,22 @@
                 });
                 ticking = true;
             }
-        });
+        }
 
-        $(window).on('resize', update);
+        function onMouseMove(e) {
+            var ww = window.innerWidth;
+            var wh = window.innerHeight;
+            mouseX = (e.clientX / ww - 0.5) * 2;
+            mouseY = (e.clientY / wh - 0.5) * 2;
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', function () { update(); });
+
         update();
-    })(jQuery);
+    })();
     </script>
 </body>
 </html>
