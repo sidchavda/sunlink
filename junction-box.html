@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>sunlink - PV Junction Box</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>123 Street, New York, USA</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+012 345 6789</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center mx-n2">
+                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-square btn-link rounded-0" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+            <h2 class="m-0 text-primary">sunlink</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="about.html" class="nav-item nav-link">About</a>
+                <a href="service.html" class="nav-item nav-link">Service</a>
+                <a href="junction-box.html" class="nav-item nav-link active">Junction Box</a>
+                <a href="quote.html" class="nav-item nav-link">Quote</a>
+                <a href="team.html" class="nav-item nav-link">Team</a>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-header py-5 mb-5">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">PV Junction Box</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Products</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Junction Box</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="jb-scene" id="jbScene">
+                        <div class="jb-container" id="jbContainer">
+                            <div class="jb-face jb-front">
+                                <div class="terminal terminal-neg">
+                                    <span class="terminal-dot" style="background: #2196F3;"></span>
+                                    <small>NEG</small>
+                                </div>
+                                <div class="terminal terminal-neu">
+                                    <span class="terminal-dot" style="background: #FFFFFF;"></span>
+                                    <small>NEU</small>
+                                </div>
+                                <div class="terminal terminal-pos">
+                                    <span class="terminal-dot" style="background: #F44336;"></span>
+                                    <small>POS</small>
+                                </div>
+                                <div class="jb-brand">sunlink</div>
+                            </div>
+                            <div class="jb-face jb-back"></div>
+                            <div class="jb-face jb-right">
+                                <div class="jb-side-label">IP68</div>
+                                <div class="jb-side-label">1500V</div>
+                            </div>
+                            <div class="jb-face jb-left">
+                                <div class="jb-side-label">TUV</div>
+                                <div class="jb-side-label">IEC</div>
+                            </div>
+                            <div class="jb-face jb-top">
+                                <div class="jb-cap-inner"></div>
+                            </div>
+                            <div class="jb-face jb-bottom"></div>
+                            <div class="jb-cable"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h6 class="text-primary">Product</h6>
+                    <h1 class="mb-4">High-Performance PV Junction Box</h1>
+                    <p class="fs-5 mb-4">High-performance PV junction box designed for maximum efficiency, durability, and seamless solar panel integration. Engineered to meet the demanding requirements of modern photovoltaic systems.</p>
+                    <div class="d-flex flex-wrap gap-3 mb-3">
+                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-bolt text-primary me-2"></i>1500V DC</span>
+                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-shield-alt text-primary me-2"></i>IP68 Rated</span>
+                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-fire text-primary me-2"></i>UL-94 V0</span>
+                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-snowflake text-primary me-2"></i>-40°C to +85°C</span>
+                    </div>
+                    <a href="quote.html" class="btn btn-primary py-3 px-5 mt-2">Request Quote <i class="fa fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5 bg-light">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h6 class="text-primary">Specifications</h6>
+                <h1 class="mb-4">Technical Specifications</h1>
+            </div>
+            <div class="row g-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="col-lg-6">
+                    <div class="spec-card">
+                        <table class="table table-borderless spec-table">
+                            <tbody>
+                                <tr><td class="spec-label">Rated Voltage</td><td class="spec-value">1500 Volt DC</td></tr>
+                                <tr><td class="spec-label">Rated Impulse Voltage</td><td class="spec-value">16KV</td></tr>
+                                <tr><td class="spec-label">Max Working Voltage</td><td class="spec-value">100V</td></tr>
+                                <tr><td class="spec-label">Reverse Current</td><td class="spec-value">Upto 50A</td></tr>
+                                <tr><td class="spec-label">Protection Class</td><td class="spec-value">Class II (Application Class A)</td></tr>
+                                <tr><td class="spec-label">Protection Degree</td><td class="spec-value">IP68</td></tr>
+                                <tr><td class="spec-label">Pollution Degree</td><td class="spec-value">1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="spec-card">
+                        <table class="table table-borderless spec-table">
+                            <tbody>
+                                <tr><td class="spec-label">RTI of Housing Material</td><td class="spec-value">125°C</td></tr>
+                                <tr><td class="spec-label">Flammability Class</td><td class="spec-value">UL-94 V0, 5VA</td></tr>
+                                <tr><td class="spec-label">Contact Resistance</td><td class="spec-value">≤3mΩ</td></tr>
+                                <tr><td class="spec-label">Temperature Range</td><td class="spec-value">-40°C to +85°C</td></tr>
+                                <tr><td class="spec-label">Cable / OD</td><td class="spec-value">62930 IEC 131, 1×4mm², ≥15KV DC / 6.2mm²±0.1mm</td></tr>
+                                <tr><td class="spec-label">Diode Rating</td><td class="spec-value">If=40A/VRRM=45V</td></tr>
+                                <tr><td class="spec-label">Contact Material</td><td class="spec-value">Copper alloy, Tin plated</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 wow fadeInUp" data-wow-delay="0.3s">
+                <p class="mb-0"><small class="text-muted">Standard: IEC 62790:2020 | Bonding Material: Silicon Glue/Sealant | PV Connectors: 1500V DC, 40A, IEC 62852</small></p>
+            </div>
+            <div class="text-center mt-4 wow fadeInUp" data-wow-delay="0.3s">
+                <a href="quote.html" class="btn btn-outline-primary py-3 px-5">Request Datasheet <i class="fa fa-file-pdf ms-2"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h6 class="text-primary">Key Features</h6>
+                <h1 class="mb-4">Why Choose Our Junction Box</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="feature-card text-center p-4">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fa fa-bolt fa-2x"></i>
+                        </div>
+                        <h5>High Voltage</h5>
+                        <p class="mb-0 small">Rated for 1500V DC with 16KV impulse voltage rating for reliable performance.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-card text-center p-4">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fa fa-tint fa-2x"></i>
+                        </div>
+                        <h5>IP68 Protection</h5>
+                        <p class="mb-0 small">Fully dust-tight and waterproof for harsh environmental conditions.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="feature-card text-center p-4">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fa fa-fire fa-2x"></i>
+                        </div>
+                        <h5>Flame Retardant</h5>
+                        <p class="mb-0 small">UL-94 V0 and 5VA rated housing material for maximum safety.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="feature-card text-center p-4">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fa fa-thermometer-half fa-2x"></i>
+                        </div>
+                        <h5>Wide Temperature Range</h5>
+                        <p class="mb-0 small">Operates reliably from -40°C to +85°C in any climate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Address</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="contact.html">Contact Us</a>
+                    <a class="btn btn-link" href="service.html">Our Services</a>
+                    <a class="btn btn-link" href="junction-box.html">Junction Box</a>
+                    <a class="btn btn-link" href="quote.html">Get a Quote</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Project Gallery</h5>
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-1.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-4.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-5.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid rounded" src="img/gallery-6.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+    (function ($) {
+        "use strict";
+
+        var $scene = $('#jbScene');
+        var $container = $('#jbContainer');
+        var ticking = false;
+        var currentAngle = 0;
+        var targetAngle = 0;
+
+        if ($scene.length) {
+            function updateRotation() {
+                var rect = $scene[0].getBoundingClientRect();
+                var windowHeight = $(window).height();
+                var elementHeight = rect.height;
+                var visibleTop = Math.max(0, rect.top);
+                var visibleBottom = Math.min(windowHeight, rect.bottom);
+                var visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                var totalProgress = visibleHeight / elementHeight;
+                var viewportProgress = 1 - (rect.top + elementHeight / 2) / (windowHeight + elementHeight);
+                viewportProgress = Math.max(0, Math.min(1, viewportProgress));
+                targetAngle = viewportProgress * 720;
+                $container.css('transform', 'rotateX(15deg) rotateY(' + targetAngle + 'deg)');
+                ticking = false;
+            }
+
+            $(window).on('scroll', function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(function () {
+                        updateRotation();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            updateRotation();
+        }
+    })(jQuery);
+    </script>
+</body>
+</html>
