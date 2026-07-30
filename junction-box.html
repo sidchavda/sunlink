@@ -22,6 +22,7 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
@@ -93,13 +94,7 @@
 
     <div class="t3d-wrap" id="t3dWrap">
         <div class="t3d-sticky" id="t3dSticky">
-            <div class="t3d-stage" id="t3dStage">
-                <div class="t3d-model" id="t3dModel">
-                    <img src="img/1.png" class="t3d-part" data-idx="0">
-                    <img src="img/2.png" class="t3d-part" data-idx="1">
-                    <img src="img/3.png" class="t3d-part" data-idx="2">
-                </div>
-            </div>
+            <div id="t3dStage"></div>
         </div>
     </div>
 
@@ -281,17 +276,144 @@
     (function () {
         "use strict";
 
+        var container = document.getElementById('t3dStage');
+        if (!container) return;
+        if (typeof THREE === 'undefined') return;
+
         var wrap = document.getElementById('t3dWrap');
-        var stage = document.getElementById('t3dStage');
-        var model = document.getElementById('t3dModel');
-        var parts = document.querySelectorAll('.t3d-part');
-        var ticking = false;
-
         var mouseX = 0, mouseY = 0;
+        var autoRot = 0;
+        var targetRotY = 0;
+        var targetRotX = 0;
+        var isRunning = false;
 
-        function lerp(a, b, t) { return a + (b - a) * t; }
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+
+        var w = container.clientWidth || window.innerWidth;
+        var h = container.clientHeight || window.innerHeight;
+
+        var camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
+        camera.position.set(0, 0.6, 5.5);
+        camera.lookAt(0, 0, 0);
+
+        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(w, h);
+        renderer.setClearColor(0xffffff, 1);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container.appendChild(renderer.domElement);
+
+        var ambient = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambient);
+
+        var keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        keyLight.position.set(4, 6, 4);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.width = 2048;
+        keyLight.shadow.mapSize.height = 2048;
+        keyLight.shadow.camera.near = 0.5;
+        keyLight.shadow.camera.far = 20;
+        keyLight.shadow.camera.left = -5;
+        keyLight.shadow.camera.right = 5;
+        keyLight.shadow.camera.top = 5;
+        keyLight.shadow.camera.bottom = -5;
+        keyLight.shadow.bias = -0.0001;
+        scene.add(keyLight);
+
+        var fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        fillLight.position.set(-3, 2, -2);
+        scene.add(fillLight);
+
+        var rimLight = new THREE.DirectionalLight(0xcccccc, 0.6);
+        rimLight.position.set(0, -2, -4);
+        scene.add(rimLight);
+
+        var productGroup = new THREE.Group();
+        scene.add(productGroup);
+
+        var loader = new THREE.TextureLoader();
+        var textures = [null, null, null];
+        var planes = [];
+        var planeGeo = new THREE.PlaneGeometry(4, 1.93);
+
+        var planeMats = [];
+        for (var i = 0; i < 3; i++) {
+            (function (idx) {
+                loader.load('img/' + (idx + 1) + '.png', function (tex) {
+                    tex.encoding = THREE.sRGBEncoding;
+                    textures[idx] = tex;
+                    var mat = new THREE.MeshStandardMaterial({
+                        map: tex,
+                        roughness: 0.35,
+                        metalness: 0.05,
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        opacity: 0,
+                        depthWrite: false
+                    });
+                    planeMats[idx] = mat;
+                    var mesh = new THREE.Mesh(planeGeo, mat);
+                    mesh.position.z = (idx - 1) * 0.25;
+                    mesh.scale.set(0, 0, 1);
+                    mesh.position.y = idx === 0 ? 0.5 : idx === 1 ? 0 : -0.5;
+                    productGroup.add(mesh);
+                    planes.push(mesh);
+                    checkReady();
+                });
+            })(i);
+        }
+
+        function checkReady() {
+            if (textures.every(function (t) { return t !== null; }) && planes.length === 3) {
+                isRunning = true;
+                animate();
+            }
+        }
+
+        var floorGeo = new THREE.PlaneGeometry(20, 20);
+        var floorMat = new THREE.MeshStandardMaterial({
+            color: 0xf0f0f0,
+            roughness: 0.2,
+            metalness: 0.8,
+            transparent: true,
+            opacity: 0.25
+        });
+        var floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = -2;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        var particleCount = 300;
+        var particleGeo = new THREE.BufferGeometry();
+        var positions = new Float32Array(particleCount * 3);
+        var sizes = new Float32Array(particleCount);
+        for (var p = 0; p < particleCount; p++) {
+            positions[p * 3] = (Math.random() - 0.5) * 12;
+            positions[p * 3 + 1] = (Math.random() - 0.5) * 8;
+            positions[p * 3 + 2] = (Math.random() - 0.5) * 12;
+            sizes[p] = Math.random() * 3 + 1;
+        }
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+        var particleMat = new THREE.PointsMaterial({
+            color: 0xcccccc,
+            size: 0.02,
+            transparent: true,
+            opacity: 0.4,
+            sizeAttenuation: true,
+            depthWrite: false
+        });
+        var particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        var lastProgress = -1;
 
         function getProgress() {
+            if (!wrap) return 0;
             var rect = wrap.getBoundingClientRect();
             var wh = window.innerHeight;
             var total = wrap.scrollHeight - wh;
@@ -299,51 +421,65 @@
             return Math.max(0, Math.min(1, -rect.top / total));
         }
 
-        function update() {
-            if (!wrap) return;
+        function animate() {
+            if (!isRunning) return;
+            requestAnimationFrame(animate);
 
             var progress = getProgress();
 
-            for (var j = 0; j < parts.length; j++) {
-                var part = parts[j];
+            for (var j = 0; j < planes.length; j++) {
                 var center = (j + 0.5) / 3;
                 var dist = Math.abs(progress - center) * 3;
                 var o = 1 - dist;
                 o = Math.max(0, Math.min(1, o));
                 o = o * o * (3 - 2 * o);
-                part.style.opacity = o;
+
+                var mesh = planes[j];
+                var mat = planeMats[j];
+                if (mat) mat.opacity = o;
+
+                var targetScale = o > 0.01 ? 1 : 0;
+                var targetY = o > 0.01 ? 0 : (j === 0 ? 0.5 : j === 1 ? 0 : -0.5);
+                var cs = mesh.scale.x;
+                var ns = cs + (targetScale - cs) * 0.08;
+                mesh.scale.set(ns, ns, 1);
+                mesh.position.y += (targetY - mesh.position.y) * 0.08;
             }
 
-            var rotY = -15 + progress * -345 + mouseX * 4;
-            var rotX = 8 + mouseY * -2;
-            model.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+            targetRotY = -15 + progress * -345 + mouseX * 4;
+            targetRotX = 8 + mouseY * -3;
+            autoRot += 0.15;
 
-            ticking = false;
+            var rotY = targetRotY + Math.sin(autoRot * 0.01) * 2;
+            var rotX = targetRotX + Math.sin(autoRot * 0.007) * 0.5;
+            productGroup.rotation.y += (rotY * Math.PI / 180 - productGroup.rotation.y) * 0.06;
+            productGroup.rotation.x += (rotX * Math.PI / 180 - productGroup.rotation.x) * 0.06;
+
+            particles.rotation.y += 0.0003;
+            particles.rotation.x += 0.0001;
+
+            renderer.render(scene, camera);
         }
 
-        function onScroll() {
-            if (!ticking) {
-                window.requestAnimationFrame(function () {
-                    update();
-                    ticking = false;
-                });
-                ticking = true;
-            }
+        function handleResize() {
+            if (!container) return;
+            var nw = container.clientWidth;
+            var nh = container.clientHeight;
+            if (nw === 0 || nh === 0) return;
+            camera.aspect = nw / nh;
+            camera.updateProjectionMatrix();
+            renderer.setSize(nw, nh);
         }
 
-        function onMouseMove(e) {
-            var ww = window.innerWidth;
-            var wh = window.innerHeight;
-            mouseX = (e.clientX / ww - 0.5) * 2;
-            mouseY = (e.clientY / wh - 0.5) * 2;
-        }
+        window.addEventListener('scroll', function () { }, { passive: true });
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('mousemove', function (e) {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
 
-        document.addEventListener('mousemove', onMouseMove);
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function () { update(); });
-
-        update();
+        handleResize();
+        checkReady();
     })();
     </script>
 </body>
