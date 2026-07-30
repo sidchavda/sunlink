@@ -91,74 +91,40 @@
         </div>
     </div>
 
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Product Builder</h6>
-                <h1 class="mb-4">3-Stage Assembly Animation</h1>
-                <p class="fs-5">Scroll to see each layer of the junction box assemble in sequence.</p>
+    <div class="t3d-wrap" id="t3dWrap">
+        <div class="t3d-sticky">
+            <div class="t3d-scene">
+                <div class="t3d-counter" id="t3dCounter">
+                    <span class="t3d-current" id="t3dCurrent">1</span>
+                    <span class="t3d-divider">/</span>
+                    <span class="t3d-total">3</span>
+                </div>
+                <div class="t3d-images" id="t3dImages">
+                    <div class="t3d-img-wrap" id="t3dImg1">
+                        <img src="img/1.png" alt="Assembly Step 1">
+                        <div class="t3d-label">Base Structure</div>
+                    </div>
+                    <div class="t3d-img-wrap" id="t3dImg2">
+                        <img src="img/2.png" alt="Assembly Step 2">
+                        <div class="t3d-label">Core Assembly</div>
+                    </div>
+                    <div class="t3d-img-wrap" id="t3dImg3">
+                        <img src="img/3.png" alt="Assembly Step 3">
+                        <div class="t3d-label">Final Integration</div>
+                    </div>
+                </div>
+                <div class="t3d-progress" id="t3dProgress">
+                    <div class="t3d-progress-fill" id="t3dProgressFill"></div>
+                    <div class="t3d-progress-steps">
+                        <span class="t3d-ps active" data-idx="0"></span>
+                        <span class="t3d-ps" data-idx="1"></span>
+                        <span class="t3d-ps" data-idx="2"></span>
+                    </div>
+                </div>
             </div>
-            <div class="row g-5 align-items-start">
-                <div class="col-lg-8">
-                    <div class="bv-dark" id="bvDark">
-                        <div class="bv-glow" id="bvGlow"></div>
-                        <div class="bv-layer bv-layer-1" id="bvLayer1">
-                            <img src="img/1.png" alt="Layer 1" class="bv-img">
-                        </div>
-                        <div class="bv-layer bv-layer-2" id="bvLayer2">
-                            <img src="img/2.png" alt="Layer 2" class="bv-img">
-                        </div>
-                        <div class="bv-layer bv-layer-3" id="bvLayer3">
-                            <img src="img/3.png" alt="Layer 3" class="bv-img">
-                        </div>
-                        <div class="bv-beam" id="bvBeam"></div>
-                        <div class="bv-badge" id="bvBadge">1</div>
-                        <div class="bv-particles" id="bvParticles"></div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="bv-sidebar">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <small class="text-muted">Build Progress</small>
-                            <small class="fw-bold" id="bvPct" style="color: #000;">0%</small>
-                        </div>
-                        <div class="progress bv-progress mb-4">
-                            <div class="progress-bar bv-progress-bar" id="bvBar" role="progressbar" style="width: 0%"></div>
-                        </div>
-                        <div class="bv-steps" id="bvSteps">
-                            <div class="bv-step active" data-step="0">
-                                <div class="bv-marker">
-                                    <div class="bv-line"></div>
-                                    <div class="bv-dot">1</div>
-                                </div>
-                                <div class="bv-info">
-                                    <h6 class="mb-1">Base Structure</h6>
-                                    <small class="text-muted">Housing foundation layer</small>
-                                </div>
-                            </div>
-                            <div class="bv-step" data-step="1">
-                                <div class="bv-marker">
-                                    <div class="bv-line"></div>
-                                    <div class="bv-dot">2</div>
-                                </div>
-                                <div class="bv-info">
-                                    <h6 class="mb-1">Internal Assembly</h6>
-                                    <small class="text-muted">Core components & busbars</small>
-                                </div>
-                            </div>
-                            <div class="bv-step" data-step="2">
-                                <div class="bv-marker">
-                                    <div class="bv-line"></div>
-                                    <div class="bv-dot">3</div>
-                                </div>
-                                <div class="bv-info">
-                                    <h6 class="mb-1">Final Integration</h6>
-                                    <small class="text-muted">Sealing & complete assembly</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="t3d-hint">
+                <span class="t3d-hint-icon">&#x2193;</span>
+                <span class="t3d-hint-text">Scroll to assemble</span>
             </div>
         </div>
     </div>
@@ -341,108 +307,78 @@
     (function ($) {
         "use strict";
 
-        var $viewer = $('#bvDark');
-        var $layer1 = $('#bvLayer1');
-        var $layer2 = $('#bvLayer2');
-        var $layer3 = $('#bvLayer3');
-        var $beam = $('#bvBeam');
-        var $badge = $('#bvBadge');
-        var $steps = $('.bv-step');
-        var $bar = $('#bvBar');
-        var $pct = $('#bvPct');
-        var $glow = $('#bvGlow');
-        var $particles = $('#bvParticles');
+        var $wrap = $('#t3dWrap');
+        var $imgs = [$('#t3dImg1'), $('#t3dImg2'), $('#t3dImg3')];
+        var $progress = $('#t3dProgressFill');
+        var $steps = $('.t3d-ps');
+        var $counter = $('#t3dCurrent');
+        var $hint = $('.t3d-hint');
         var ticking = false;
 
-        var layerStates = [false, false, false];
+        function update() {
+            if (!$wrap.length) return;
 
-        function spawnParticles(count) {
-            for (var i = 0; i < count; i++) {
-                var p = $('<span class="bv-particle"></span>');
-                var x = Math.random() * 100;
-                var d = 0.5 + Math.random() * 1.5;
-                var s = 2 + Math.random() * 4;
-                p.css({
-                    left: x + '%',
-                    animationDuration: d + 's',
-                    width: s + 'px',
-                    height: s + 'px',
-                    animationDelay: (Math.random() * 0.5) + 's'
-                });
-                $particles.append(p);
-                setTimeout(function () { p.remove(); }, d * 1000 + 500);
-            }
-        }
-
-        function updateBuild() {
-            if (!$viewer.length) return;
-
-            var rect = $viewer[0].getBoundingClientRect();
+            var rect = $wrap[0].getBoundingClientRect();
             var wh = $(window).height();
-            var eh = rect.height;
-            var progress = 1 - (rect.top + eh * 0.25) / (wh + eh * 0.5);
-            progress = Math.max(0, Math.min(1, progress));
+            var totalScroll = $wrap[0].scrollHeight - wh;
+            if (totalScroll <= 0) { ticking = false; return; }
+            var scrolled = -rect.top;
+            var progress = Math.max(0, Math.min(1, scrolled / totalScroll));
 
             var pct = progress * 100;
+            $progress.css('width', pct + '%');
 
-            $beam.css('top', pct + '%');
-            $glow.css('opacity', 0.3 + progress * 0.7);
-
-            var thresholds = [0.33, 0.66, 0.99];
-            var newLayerStates = [
-                progress >= thresholds[0],
-                progress >= thresholds[1],
-                progress >= thresholds[2]
-            ];
-
-            for (var i = 0; i < 3; i++) {
-                if (newLayerStates[i] && !layerStates[i]) {
-                    layerStates[i] = true;
-                    spawnParticles(12 + i * 6);
-                }
-                layerStates[i] = newLayerStates[i];
+            var thresholds = [0, 0.33, 0.66];
+            var stepIdx = 0;
+            for (var i = $imgs.length - 1; i >= 0; i--) {
+                if (progress >= thresholds[i]) { stepIdx = i; break; }
             }
 
-            $layer1.css('opacity', layerStates[0] ? 1 : 0);
-            $layer1.css('transform', layerStates[0] ? 'translateY(0) scale(1)' : 'translateY(60px) scale(0.8)');
+            for (var j = 0; j < $imgs.length; j++) {
+                var $img = $imgs[j];
+                var t = thresholds[j];
+                var tNext = (j < $imgs.length - 1) ? thresholds[j + 1] : 1;
+                var localProgress = (progress - t) / (tNext - t);
+                localProgress = Math.max(0, Math.min(1, localProgress));
 
-            $layer2.css('opacity', layerStates[1] ? 1 : 0);
-            $layer2.css('transform', layerStates[1] ? 'translateY(0) scale(1) rotate(0deg)' : 'translateY(40px) scale(0.6) rotate(-15deg)');
-
-            $layer3.css('opacity', layerStates[2] ? 1 : 0);
-            $layer3.css('transform', layerStates[2] ? 'translateX(0) scale(1)' : 'translateX(80px) scale(0.5)');
-
-            var stepIdx = Math.min(Math.floor(progress * 3), 2);
-            $badge.text(stepIdx + 1);
+                if (j < stepIdx) {
+                    $img.css({ opacity: 0, transform: 'translateY(-30px) scale(0.8)' });
+                } else if (j === stepIdx) {
+                    var s = 0.7 + localProgress * 0.3;
+                    var y = (1 - localProgress) * 40;
+                    $img.css({ opacity: localProgress, transform: 'translateY(' + y + 'px) scale(' + s + ')' });
+                } else {
+                    $img.css({ opacity: 0, transform: 'translateY(40px) scale(0.7)' });
+                }
+            }
 
             $steps.each(function (idx) {
-                var $s = $(this);
-                if (idx < stepIdx) {
-                    $s.addClass('completed').removeClass('active');
-                } else if (idx === stepIdx) {
-                    $s.addClass('active').removeClass('completed');
-                } else {
-                    $s.removeClass('active completed');
-                }
+                $(this).toggleClass('active', idx <= stepIdx);
             });
 
-            $bar.css('width', pct + '%');
-            $pct.text(Math.round(pct) + '%');
+            $counter.text(stepIdx + 1);
+
+            if (progress < 0.05) {
+                $hint.css('opacity', 1 - progress * 20);
+            } else {
+                $hint.css('opacity', 0);
+            }
+
             ticking = false;
         }
 
         $(window).on('scroll', function () {
             if (!ticking) {
                 window.requestAnimationFrame(function () {
-                    updateBuild();
+                    update();
                     ticking = false;
                 });
                 ticking = true;
             }
         });
 
-        $(window).on('resize', updateBuild);
-        updateBuild();
+        $(window).on('resize', update);
+        update();
     })(jQuery);
     </script>
 </body>

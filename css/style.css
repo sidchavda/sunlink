@@ -760,229 +760,202 @@
 }
 
 
-/*** Build Viewer — Monochrome 3-Layer Assembly ***/
-.bv-dark {
+/*** Full-Screen Scroll Assembly ***/
+.t3d-wrap {
     position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    background: #FFFFFF;
-    border: 2px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 300vh;
+    background: #fff;
 }
 
-.bv-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
-    pointer-events: none;
-    opacity: 0.3;
-    transition: opacity 0.5s;
-}
-
-.bv-layer {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    will-change: transform, opacity;
-    pointer-events: none;
-}
-
-.bv-layer img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    opacity: 0.95;
-}
-
-.bv-layer-1 { z-index: 1; }
-.bv-layer-2 { z-index: 2; }
-.bv-layer-3 { z-index: 3; }
-
-.bv-beam {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(0, 0, 0, 0.1) 10%,
-        #000 30%,
-        #555 50%,
-        #000 70%,
-        rgba(0, 0, 0, 0.1) 90%,
-        transparent 100%);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-    pointer-events: none;
-    z-index: 10;
-    top: 0;
-    will-change: top;
-}
-
-.bv-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #000;
-    color: #FFF;
-    font-size: 24px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 11;
-    font-family: 'Roboto', sans-serif;
-}
-
-.bv-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9;
-    overflow: hidden;
-}
-
-.bv-particle {
-    position: absolute;
-    bottom: 0;
-    border-radius: 50%;
-    background: #000;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    animation: bv-particle-rise linear forwards;
-}
-
-@keyframes bv-particle-rise {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-500px) scale(0);
-        opacity: 0;
-    }
-}
-
-.bv-sidebar {
-    background: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 28px;
+.t3d-sticky {
     position: sticky;
-    top: 100px;
-}
-
-.bv-progress {
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 0.06);
+    top: 0;
+    height: 100vh;
     overflow: hidden;
-}
-
-.bv-progress-bar {
-    background: #000;
-    border-radius: 3px;
-    transition: width 0.1s ease-out;
-}
-
-.bv-steps {
-    position: relative;
-}
-
-.bv-step {
     display: flex;
-    gap: 16px;
-    opacity: 0.3;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-bottom: 8px;
-    padding: 12px;
-    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
 }
 
-.bv-step.active {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.04);
-}
-
-.bv-step.completed {
-    opacity: 0.5;
-}
-
-.bv-marker {
+.t3d-scene {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-shrink: 0;
-    width: 32px;
+    gap: 30px;
 }
 
-.bv-dot {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 2px solid rgba(0, 0, 0, 0.15);
+.t3d-images {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 934;
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.t3d-img-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 13px;
-    font-weight: 700;
-    transition: all 0.5s ease;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+    will-change: transform, opacity;
 }
 
-.bv-step.active .bv-dot {
-    background: #000;
-    border-color: #000;
-    color: #FFF;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    transform: scale(1.1);
+.t3d-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
-.bv-step.completed .bv-dot {
-    background: #FFFFFF;
-    border-color: #000;
-    color: #000;
-}
-
-.bv-line {
-    width: 2px;
-    flex-grow: 1;
-    min-height: 20px;
-    background: rgba(0, 0, 0, 0.1);
-    transition: background 0.5s ease;
-}
-
-.bv-step.active .bv-line {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.bv-step:last-child .bv-line {
-    display: none;
-}
-
-.bv-info h6 {
+.t3d-label {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    background: rgba(255,255,255,0.9);
+    padding: 6px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.08);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.t3d-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-family: 'Roboto', sans-serif;
     font-weight: 700;
-    margin-bottom: 2px;
     color: #000;
 }
 
-.bv-info small {
-    font-size: 12px;
-    color: #999 !important;
+.t3d-current {
+    font-size: 48px;
+    line-height: 1;
+    transition: opacity 0.2s;
+}
+
+.t3d-divider {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.t3d-total {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.t3d-progress {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.t3d-progress-fill {
+    width: 0%;
+    height: 3px;
+    background: #000;
+    border-radius: 2px;
+    transition: width 0.05s linear;
+}
+
+.t3d-progress-steps {
+    display: flex;
+    gap: 40px;
+}
+
+.t3d-ps {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: background 0.3s;
+    cursor: default;
+}
+
+.t3d-ps.active {
+    background: #000;
+}
+
+.t3d-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.t3d-hint-icon {
+    font-size: 18px;
+    color: #000;
+    animation: t3d-bounce 2s infinite;
+}
+
+.t3d-hint-text {
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+@keyframes t3d-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+@media (max-width: 768px) {
+    .t3d-scene {
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .t3d-images {
+        max-height: 55vh;
+    }
+
+    .t3d-current {
+        font-size: 36px;
+    }
+
+    .t3d-divider, .t3d-total {
+        font-size: 18px;
+    }
+
+    .t3d-progress {
+        width: 200px;
+    }
+
+    .t3d-label {
+        font-size: 11px;
+        padding: 4px 14px;
+        bottom: 12px;
+    }
+
+    .t3d-hint {
+        bottom: 16px;
+    }
 }
 
 
@@ -1067,33 +1040,8 @@
 }
 
 
-/*** Build Viewer Responsive ***/
-@media (max-width: 991.98px) {
-    .bv-sidebar {
-        position: static;
-        margin-top: 24px;
-    }
-}
-
+/*** Responsive ***/
 @media (max-width: 768px) {
-    .bv-dark {
-        min-height: 300px;
-        border-radius: 12px;
-    }
-
-    .bv-dark img {
-        max-width: 95%;
-        max-height: 95%;
-    }
-
-    .bv-badge {
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
-        top: 12px;
-        right: 12px;
-    }
-
     .spec-card {
         padding: 16px;
     }
