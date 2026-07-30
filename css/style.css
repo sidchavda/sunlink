@@ -760,7 +760,7 @@
 }
 
 
-/*** 3D Rotating Product View ***/
+/*** 3D HD Product Viewer ***/
 .t3d-wrap {
     position: relative;
     height: 300vh;
@@ -772,52 +772,23 @@
     top: 0;
     height: 100vh;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    perspective: 1200px;
+    background: #ffffff;
 }
 
-.t3d-stage {
+#t3dStage {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.t3d-model {
-    width: min(75vw, 600px);
-    position: relative;
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-
-.t3d-part {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
+#t3dStage canvas {
     display: block;
-    will-change: opacity;
-}
-
-.t3d-part:first-child {
-    position: static;
-    display: block;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 @media (max-width: 768px) {
-    .t3d-model {
-        width: min(85vw, 420px);
-    }
-}
-
-@media (max-width: 576px) {
-    .t3d-model {
-        width: 90vw;
+    .t3d-wrap {
+        height: 300vh;
     }
 }
 
