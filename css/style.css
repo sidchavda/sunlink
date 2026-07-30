@@ -927,12 +927,14 @@
 
 @media (max-width: 768px) {
     .t3d-scene {
-        padding: 20px 10px;
-        gap: 20px;
+        padding: 16px 12px;
+        gap: 16px;
     }
 
     .t3d-images {
-        max-height: 55vh;
+        aspect-ratio: auto;
+        height: 50vh;
+        max-height: 50vh;
     }
 
     .t3d-current {
@@ -944,17 +946,79 @@
     }
 
     .t3d-progress {
-        width: 200px;
+        width: 220px;
     }
 
     .t3d-label {
         font-size: 11px;
         padding: 4px 14px;
-        bottom: 12px;
+        bottom: 10px;
+        white-space: normal;
+        max-width: 90%;
     }
 
     .t3d-hint {
         bottom: 16px;
+    }
+
+    .t3d-hint-text {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .t3d-scene {
+        padding: 10px 8px;
+        gap: 10px;
+    }
+
+    .t3d-images {
+        height: 45vh;
+        max-height: 45vh;
+    }
+
+    .t3d-counter {
+        margin-bottom: 0;
+    }
+
+    .t3d-current {
+        font-size: 28px;
+    }
+
+    .t3d-divider, .t3d-total {
+        font-size: 14px;
+    }
+
+    .t3d-progress {
+        width: 80%;
+        max-width: 260px;
+    }
+
+    .t3d-progress-steps {
+        gap: 24px;
+    }
+
+    .t3d-ps {
+        width: 8px;
+        height: 8px;
+    }
+
+    .t3d-label {
+        font-size: 10px;
+        padding: 3px 10px;
+        bottom: 8px;
+    }
+
+    .t3d-hint {
+        bottom: 12px;
+    }
+
+    .t3d-hint-icon {
+        font-size: 14px;
+    }
+
+    .t3d-hint-text {
+        font-size: 9px;
     }
 }
 
