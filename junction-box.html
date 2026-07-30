@@ -93,53 +93,71 @@
 
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6">
-                    <div class="jb-scene" id="jbScene">
-                        <div class="jb-container" id="jbContainer">
-                            <div class="jb-face jb-front">
-                                <div class="terminal terminal-neg">
-                                    <span class="terminal-dot" style="background: #2196F3;"></span>
-                                    <small>NEG</small>
-                                </div>
-                                <div class="terminal terminal-neu">
-                                    <span class="terminal-dot" style="background: #FFFFFF;"></span>
-                                    <small>NEU</small>
-                                </div>
-                                <div class="terminal terminal-pos">
-                                    <span class="terminal-dot" style="background: #F44336;"></span>
-                                    <small>POS</small>
-                                </div>
-                                <div class="jb-brand">sunlink</div>
-                            </div>
-                            <div class="jb-face jb-back"></div>
-                            <div class="jb-face jb-right">
-                                <div class="jb-side-label">IP68</div>
-                                <div class="jb-side-label">1500V</div>
-                            </div>
-                            <div class="jb-face jb-left">
-                                <div class="jb-side-label">TUV</div>
-                                <div class="jb-side-label">IEC</div>
-                            </div>
-                            <div class="jb-face jb-top">
-                                <div class="jb-cap-inner"></div>
-                            </div>
-                            <div class="jb-face jb-bottom"></div>
-                            <div class="jb-cable"></div>
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h6 class="text-primary">Product Builder</h6>
+                <h1 class="mb-4">3-Stage Assembly Animation</h1>
+                <p class="fs-5">Scroll to see each layer of the junction box assemble in sequence.</p>
+            </div>
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-8">
+                    <div class="bv-dark" id="bvDark">
+                        <div class="bv-glow" id="bvGlow"></div>
+                        <div class="bv-layer bv-layer-1" id="bvLayer1">
+                            <img src="img/1.png" alt="Layer 1" class="bv-img">
                         </div>
+                        <div class="bv-layer bv-layer-2" id="bvLayer2">
+                            <img src="img/2.png" alt="Layer 2" class="bv-img">
+                        </div>
+                        <div class="bv-layer bv-layer-3" id="bvLayer3">
+                            <img src="img/3.png" alt="Layer 3" class="bv-img">
+                        </div>
+                        <div class="bv-beam" id="bvBeam"></div>
+                        <div class="bv-badge" id="bvBadge">1</div>
+                        <div class="bv-particles" id="bvParticles"></div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <h6 class="text-primary">Product</h6>
-                    <h1 class="mb-4">High-Performance PV Junction Box</h1>
-                    <p class="fs-5 mb-4">High-performance PV junction box designed for maximum efficiency, durability, and seamless solar panel integration. Engineered to meet the demanding requirements of modern photovoltaic systems.</p>
-                    <div class="d-flex flex-wrap gap-3 mb-3">
-                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-bolt text-primary me-2"></i>1500V DC</span>
-                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-shield-alt text-primary me-2"></i>IP68 Rated</span>
-                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-fire text-primary me-2"></i>UL-94 V0</span>
-                        <span class="badge bg-dark fs-6 px-3 py-2"><i class="fa fa-snowflake text-primary me-2"></i>-40°C to +85°C</span>
+                <div class="col-lg-4">
+                    <div class="bv-sidebar">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">Build Progress</small>
+                            <small class="fw-bold" id="bvPct" style="color: #000;">0%</small>
+                        </div>
+                        <div class="progress bv-progress mb-4">
+                            <div class="progress-bar bv-progress-bar" id="bvBar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <div class="bv-steps" id="bvSteps">
+                            <div class="bv-step active" data-step="0">
+                                <div class="bv-marker">
+                                    <div class="bv-line"></div>
+                                    <div class="bv-dot">1</div>
+                                </div>
+                                <div class="bv-info">
+                                    <h6 class="mb-1">Base Structure</h6>
+                                    <small class="text-muted">Housing foundation layer</small>
+                                </div>
+                            </div>
+                            <div class="bv-step" data-step="1">
+                                <div class="bv-marker">
+                                    <div class="bv-line"></div>
+                                    <div class="bv-dot">2</div>
+                                </div>
+                                <div class="bv-info">
+                                    <h6 class="mb-1">Internal Assembly</h6>
+                                    <small class="text-muted">Core components & busbars</small>
+                                </div>
+                            </div>
+                            <div class="bv-step" data-step="2">
+                                <div class="bv-marker">
+                                    <div class="bv-line"></div>
+                                    <div class="bv-dot">3</div>
+                                </div>
+                                <div class="bv-info">
+                                    <h6 class="mb-1">Final Integration</h6>
+                                    <small class="text-muted">Sealing & complete assembly</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <a href="quote.html" class="btn btn-primary py-3 px-5 mt-2">Request Quote <i class="fa fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
@@ -323,40 +341,108 @@
     (function ($) {
         "use strict";
 
-        var $scene = $('#jbScene');
-        var $container = $('#jbContainer');
+        var $viewer = $('#bvDark');
+        var $layer1 = $('#bvLayer1');
+        var $layer2 = $('#bvLayer2');
+        var $layer3 = $('#bvLayer3');
+        var $beam = $('#bvBeam');
+        var $badge = $('#bvBadge');
+        var $steps = $('.bv-step');
+        var $bar = $('#bvBar');
+        var $pct = $('#bvPct');
+        var $glow = $('#bvGlow');
+        var $particles = $('#bvParticles');
         var ticking = false;
-        var currentAngle = 0;
-        var targetAngle = 0;
 
-        if ($scene.length) {
-            function updateRotation() {
-                var rect = $scene[0].getBoundingClientRect();
-                var windowHeight = $(window).height();
-                var elementHeight = rect.height;
-                var visibleTop = Math.max(0, rect.top);
-                var visibleBottom = Math.min(windowHeight, rect.bottom);
-                var visibleHeight = Math.max(0, visibleBottom - visibleTop);
-                var totalProgress = visibleHeight / elementHeight;
-                var viewportProgress = 1 - (rect.top + elementHeight / 2) / (windowHeight + elementHeight);
-                viewportProgress = Math.max(0, Math.min(1, viewportProgress));
-                targetAngle = viewportProgress * 720;
-                $container.css('transform', 'rotateX(15deg) rotateY(' + targetAngle + 'deg)');
-                ticking = false;
+        var layerStates = [false, false, false];
+
+        function spawnParticles(count) {
+            for (var i = 0; i < count; i++) {
+                var p = $('<span class="bv-particle"></span>');
+                var x = Math.random() * 100;
+                var d = 0.5 + Math.random() * 1.5;
+                var s = 2 + Math.random() * 4;
+                p.css({
+                    left: x + '%',
+                    animationDuration: d + 's',
+                    width: s + 'px',
+                    height: s + 'px',
+                    animationDelay: (Math.random() * 0.5) + 's'
+                });
+                $particles.append(p);
+                setTimeout(function () { p.remove(); }, d * 1000 + 500);
+            }
+        }
+
+        function updateBuild() {
+            if (!$viewer.length) return;
+
+            var rect = $viewer[0].getBoundingClientRect();
+            var wh = $(window).height();
+            var eh = rect.height;
+            var progress = 1 - (rect.top + eh * 0.25) / (wh + eh * 0.5);
+            progress = Math.max(0, Math.min(1, progress));
+
+            var pct = progress * 100;
+
+            $beam.css('top', pct + '%');
+            $glow.css('opacity', 0.3 + progress * 0.7);
+
+            var thresholds = [0.33, 0.66, 0.99];
+            var newLayerStates = [
+                progress >= thresholds[0],
+                progress >= thresholds[1],
+                progress >= thresholds[2]
+            ];
+
+            for (var i = 0; i < 3; i++) {
+                if (newLayerStates[i] && !layerStates[i]) {
+                    layerStates[i] = true;
+                    spawnParticles(12 + i * 6);
+                }
+                layerStates[i] = newLayerStates[i];
             }
 
-            $(window).on('scroll', function () {
-                if (!ticking) {
-                    window.requestAnimationFrame(function () {
-                        updateRotation();
-                        ticking = false;
-                    });
-                    ticking = true;
+            $layer1.css('opacity', layerStates[0] ? 1 : 0);
+            $layer1.css('transform', layerStates[0] ? 'translateY(0) scale(1)' : 'translateY(60px) scale(0.8)');
+
+            $layer2.css('opacity', layerStates[1] ? 1 : 0);
+            $layer2.css('transform', layerStates[1] ? 'translateY(0) scale(1) rotate(0deg)' : 'translateY(40px) scale(0.6) rotate(-15deg)');
+
+            $layer3.css('opacity', layerStates[2] ? 1 : 0);
+            $layer3.css('transform', layerStates[2] ? 'translateX(0) scale(1)' : 'translateX(80px) scale(0.5)');
+
+            var stepIdx = Math.min(Math.floor(progress * 3), 2);
+            $badge.text(stepIdx + 1);
+
+            $steps.each(function (idx) {
+                var $s = $(this);
+                if (idx < stepIdx) {
+                    $s.addClass('completed').removeClass('active');
+                } else if (idx === stepIdx) {
+                    $s.addClass('active').removeClass('completed');
+                } else {
+                    $s.removeClass('active completed');
                 }
             });
 
-            updateRotation();
+            $bar.css('width', pct + '%');
+            $pct.text(Math.round(pct) + '%');
+            ticking = false;
         }
+
+        $(window).on('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    updateBuild();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        $(window).on('resize', updateBuild);
+        updateBuild();
     })(jQuery);
     </script>
 </body>
