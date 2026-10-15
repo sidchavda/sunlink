@@ -52,5 +52,29 @@
         dotsData: true,
     });
     
+
+    // Product assembly animation.
+    var assemblyStage = $('#product-assembly-stage');
+    var assemblyStatus = $('#assembly-status');
+    var assemblyReplay = $('#assembly-replay');
+    var assemblyTimers = [];
+
+    var playAssembly = function () {
+        assemblyTimers.forEach(function (timer) {
+            clearTimeout(timer);
+        });
+        assemblyStage.removeClass('is-replaying');
+        void assemblyStage[0].offsetWidth;
+        assemblyStage.addClass('is-replaying');
+        assemblyStatus.text('Assembling components...');
+        assemblyTimers.push(setTimeout(function () {
+            assemblyStatus.text('Complete PV junction box');
+        }, 5600));
+    };
+
+    if (assemblyStage.length) {
+        playAssembly();
+        assemblyReplay.click(playAssembly);
+    }
 })(jQuery);
 
